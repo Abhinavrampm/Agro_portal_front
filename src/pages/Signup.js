@@ -1,0 +1,86 @@
+import React, { useState } from 'react';
+import axios from 'axios'
+import '../styles/Signup.css'
+const Signup = () => {
+  const [name,setName] = useState()
+  const [email,setEmail] = useState()
+  const [phoneNo,setphoneNo] = useState()
+  const [password,setPassword] = useState()
+  const [message,setMessage] = useState(); //for popup messages
+
+  const handleSubmit = (e) => {
+    e.preventDefault(); // to prevent default submission
+    axios.post('http://localhost:5000/api/auth/signup',{
+        name,email,phoneNo,password
+    }).then(result => {
+      setMessage('User registered Successfully');
+      setTimeout(() => setMessage(''),3000); //clear the message after 3 sec
+      console.log(result);
+    })
+     .catch(err => { 
+      console.log(err);
+      setMessage('Error registering user.');
+     })
+  };
+
+  return (
+    <div className="signup-form">
+      <h2>Farmer Register</h2>
+      <form onSubmit={handleSubmit}>
+        <div>
+          <label htmlFor="name">Full Name:</label>
+          <input
+            type="text"
+            placeholder='Name'
+            id="name"
+            name="name"
+            onChange={(e) => setName(e.target.value)}
+            required
+          />
+        </div>
+        <div>
+          <label htmlFor="email">Email:</label>
+          <input
+            type="email"
+            placeholder='Email'
+            id="email"
+            name="email"
+            onChange={(e) => setEmail(e.target.value)}
+            required
+          />
+        </div>
+        <div>
+          <label htmlFor="phone">Phone Number:</label>
+          <input
+    type="tel"
+    placeholder="Phone no"
+    id="phone"
+    name="phone"
+    value={phoneNo}
+    onChange={(e) => {
+      const phone = e.target.value;
+      if (phone.length <= 10 && /^\d*$/.test(phone)) {
+        setphoneNo(phone);  // Only update if input is valid
+      }
+    }}
+    required
+  />    </div>
+        <div>
+          <label htmlFor="password">Password:</label>
+          <input
+            type="password"
+            placeholder='Password'
+            id="password"
+            name="password"
+            onChange={(e)=>{setPassword(e.target.value)}}
+            required
+          />
+        </div>
+        <button type="submit">Register</button>
+      </form>
+      {message && <div className="popup-message">{message}</div>} {/* Popup message */}
+    </div>
+  );
+};
+
+export default Signup;

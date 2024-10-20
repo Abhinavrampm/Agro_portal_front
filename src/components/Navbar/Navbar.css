@@ -1,27 +1,42 @@
 .navbar {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 15px;
-    background-color: #4CAF50; 
-    color: white;
-  }
-  
-  .logo img {
-    height: 40px;
-  }
-  
-  .nav-links {
-    list-style: none;
-    display: flex;
-  }
-  
-  .nav-links li {
-    margin: 0 5px;
-  }
-  
-  .nav-links a {
-    text-decoration: none;
-    color: white;
-    font-size: 16px;
-  }
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px 30px;
+  background-color: #4CAF50; /* Change to your preferred navbar color */
+}
+
+.nav-links {
+  list-style-type: none;
+  display: flex;
+  gap: 20px; /* Space between links */
+}
+
+.nav-links li {
+  display: inline; /* Inline display for links */
+}
+
+.nav-links a {
+  text-decoration: none;
+  color: white; /* Text color for links */
+  font-weight: bold; /* Make links bold */
+  transition: color 0.3s; /* Smooth transition for hover effect */
+}
+
+.nav-links a:hover {
+  color: #ddd; /* Change color on hover */
+}
+
+/* Style for the Logout button */
+.nav-links button {
+  background-color: transparent; /* Make the background transparent */
+  border: none; /* Remove border */
+  color: white; /* Text color for button */
+  font-weight: bold; /* Make button text bold */
+  cursor: pointer; /* Change cursor to pointer on hover */
+  transition: color 0.3s; /* Smooth transition for hover effect */
+}
+
+.nav-links button:hover {
+  color: #ddd; /* Change color on hover */
+}

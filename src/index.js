@@ -1,6 +1,5 @@
-import React from 'react';
+import React, { useState } from 'react';
 import ReactDOM from 'react-dom/client';
-import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import Navbar from './components/Navbar/Navbar';
@@ -8,10 +7,26 @@ import Navbar from './components/Navbar/Navbar';
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-     <Navbar />
-    <App />
+    <Main />
   </React.StrictMode>
 );
+
+function Main() {
+  const [isLoggedIn, setIsLoggedIn] = useState(!!localStorage.getItem('token')); // Check if token exists
+
+  const handleLogout = () => {
+    localStorage.removeItem('token'); // Remove token
+    setIsLoggedIn(false); // Update state
+    window.location.href = '/'; // Redirect to home
+  };
+
+  return (
+    <>
+      <Navbar isLoggedIn={isLoggedIn} onLogout={handleLogout} />
+      <App setIsLoggedIn={setIsLoggedIn} />
+    </>
+  );
+}
 
 // If you want to start measuring performance in your app, pass a function
 // to log results (for example: reportWebVitals(console.log))
