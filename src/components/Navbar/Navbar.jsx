@@ -11,6 +11,7 @@ const Navbar = ({ isLoggedIn, onLogout }) => {
         {isLoggedIn ? (
           <>
             <li><a href="/dashboard">Dashboard</a></li>
+            <li><a href="/rentalPage">RentalPage</a></li>
             <li><a href="#" onClick={onLogout}>Logout</a></li> 
             <li><a href="/about">About</a></li>
           </>

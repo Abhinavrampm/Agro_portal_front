@@ -1,0 +1,47 @@
+/* AddEquipment.css */
+
+.add-equipment-container {
+    max-width: 500px;
+    margin: 0 auto;
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    background-color: #f9f9f9;
+}
+
+.add-equipment-container h2 {
+    text-align: center;
+    margin-bottom: 20px;
+    font-size: 24px;
+    color: #333;
+}
+
+.add-equipment-container form {
+    display: flex;
+    flex-direction: column;
+}
+
+.add-equipment-container input,
+.add-equipment-container button {
+    padding: 10px;
+    margin: 10px 0;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.add-equipment-container input:focus {
+    outline: none;
+    border-color: #67a6f7;
+}
+
+.add-equipment-container button {
+    background-color: #67a6f7;
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.add-equipment-container button:hover {
+    background-color: #558ed2;
+}

@@ -1,0 +1,51 @@
+.equipment-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); /* Responsive grid */
+    gap: 20px; /* Space between cards */
+    padding: 20px; /* Overall padding */
+}
+
+.equipment-card {
+    background-color: #fff; /* White background for cards */
+    border: 1px solid #e1e1e1; /* Light grey border */
+    border-radius: 8px; /* Rounded corners */
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+    overflow: hidden; /* Ensures no overflow from rounded corners */
+    transition: transform 0.2s; /* Smooth transition for hover effect */
+    padding: 15px; /* Padding inside cards */
+    text-align: center; /* Center align text */
+}
+
+.equipment-card:hover {
+    transform: translateY(-5px); /* Raise the card slightly on hover */
+}
+
+.card-image {
+    width: 100%; /* Full width of the card */
+    height: auto; /* Maintain aspect ratio */
+    border-radius: 4px; /* Slightly rounded corners for images */
+}
+
+h3 {
+    font-size: 1.5em; /* Increase heading size */
+    margin: 10px 0; /* Margin around heading */
+}
+
+p {
+    color: #555; /* Darker grey for text */
+    margin: 5px 0; /* Margin around paragraphs */
+}
+
+button {
+    background-color: #007bff; /* Bootstrap primary color */
+    color: white; /* White text */
+    border: none; /* No border */
+    border-radius: 4px; /* Rounded corners */
+    padding: 10px 15px; /* Padding inside button */
+    cursor: pointer; /* Pointer cursor on hover */
+    transition: background-color 0.3s; /* Transition for hover effect */
+}
+
+button:hover {
+    background-color: #0056b3; /* Darker blue on hover */
+}

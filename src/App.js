@@ -6,6 +6,10 @@ import Home from './pages/Home'
 import Chatbot from './components/Chatbot';
 import Signup from './pages/Signup'
 import Login from './pages/Login'
+import RentalSystem from './pages/RentalSystem';
+import AddEquipment from './pages/AddEquipment';
+import ViewEquipment from './pages/ViewEquipment';
+
 const App = ({setIsLoggedIn}) => {
     return (
         <Router>
@@ -15,6 +19,9 @@ const App = ({setIsLoggedIn}) => {
                 <Route path="/chatbot" element={<Chatbot />} />
                 <Route path="/Signup" element={<Signup />} />
                 <Route path="/Login" element={<Login setIsLoggedIn={setIsLoggedIn} />} />
+                <Route path="/rentalPage" element={<RentalSystem />} />
+                <Route path="/addEquipment" element={<AddEquipment />} />
+                <Route path="/viewEquipment" element={<ViewEquipment />} />
                 {/* Add more routes as needed */}
             </Routes>
         </Router>
