@@ -1,0 +1,12 @@
+.background {
+    background-image: url('../components/images/BACKGROUND.png'); /* Adjust the path based on the image's location */
+    background-size: cover; /* Cover the entire area */
+    background-position: center; /* Center the image */
+    height: calc(100vh - -80px); /* Adjust height to accommodate the navbar height */
+    position: absolute; /* Positioning to place it behind the navbar */
+    top: 50px; /* Adjust this value to move the background down */
+    left: 0; /* Aligns it to the left */
+    right: 0; /* Aligns it to the right */
+    z-index: -1; /* Places it behind other elements */
+}
+

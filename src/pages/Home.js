@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
-
+import '../styles/Home.css'
 const Home = () => {
 
     return (
         <div>
-            <h2>Welcome To Home Page</h2>
+             <div className="background"></div> {/* Background image div */}
         </div>
     );
 };
