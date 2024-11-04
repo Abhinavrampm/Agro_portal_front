@@ -71,7 +71,7 @@
 }
 
 .auth-buttons .logout-btn {
-  background: linear-gradient(135deg, #b1b107, #c44b00);
+  background: linear-gradient(135deg, #fefefe, #0b500e);
   color: #fff;
 }
 
@@ -82,7 +82,7 @@
 }
 
 .auth-buttons .signup-btn {
-  background: linear-gradient(135deg, #b1b107, #c44b00);
+  background: linear-gradient(135deg, #fefefe, #0b500e);
   color: #fff;
 }
 

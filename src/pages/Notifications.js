@@ -3,7 +3,8 @@ import axios from 'axios';
 import '../styles/Notification.css'; // Ensure this file contains the CSS provided
 
 const Notifications = () => {
-    const [notifications, setNotifications] = useState([]);
+    const [ourOffers, setOurOffers] = useState([]);
+    const [ourRequests, setOurRequests] = useState([]);
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
@@ -13,7 +14,8 @@ const Notifications = () => {
                 const response = await axios.get('http://localhost:5000/api/notifications', {
                     headers: { Authorization: `Bearer ${token}` }
                 });
-                setNotifications(response.data);
+                setOurOffers(response.data.ourOffers);
+                setOurRequests(response.data.ourRequests);
             } catch (error) {
                 console.error("Error fetching notifications:", error);
             } finally {
@@ -23,10 +25,6 @@ const Notifications = () => {
         fetchNotifications();
     }, []);
 
-    // Separate notifications into "Our Offers" and "Our Requests"
-    const ourOffers = notifications.filter(notification => notification.offerId);
-    const ourRequests = notifications.filter(notification => !notification.offerId);
-
     const handleAccept = async (equipmentId, offerId) => {
         try {
             const token = localStorage.getItem('token');
@@ -34,7 +32,7 @@ const Notifications = () => {
                 headers: { Authorization: `Bearer ${token}` }
             });
             alert('Offer accepted');
-            setNotifications(prev => prev.filter(notif => notif.offerId !== offerId));
+            setOurOffers(prev => prev.filter(notif => notif.offerId !== offerId));
         } catch (error) {
             console.error(error);
             alert('Failed to accept offer');
@@ -48,10 +46,23 @@ const Notifications = () => {
                 headers: { Authorization: `Bearer ${token}` }
             });
             alert('Offer rejected');
-            setNotifications(prev => prev.filter(notif => notif.offerId !== offerId));
+            setOurOffers(prev => prev.filter(notif => notif.offerId !== offerId));
         } catch (error) {
             console.error(error);
             alert('Failed to reject offer');
+        }
+    };
+
+    const handleCloseRequest = async (notificationId) => {
+        try {
+            const token = localStorage.getItem('token');
+            await axios.delete(`http://localhost:5000/api/notifications/${notificationId}`, {
+                headers: { Authorization: `Bearer ${token}` }
+            });
+            setOurRequests(prev => prev.filter(notif => notif._id !== notificationId));
+        } catch (error) {
+            console.error(error);
+            alert('Failed to close notification');
         }
     };
 
@@ -99,6 +110,7 @@ const Notifications = () => {
                                 <p><strong>Equipment:</strong> {notification.equipmentId ? notification.equipmentId.name : 'Unknown Equipment'}</p>
                                 <p><strong>Status:</strong> {notification.message}</p>
                                 <p><strong>Date:</strong> {new Date(notification.date).toLocaleDateString()}</p>
+                                <button onClick={() => handleCloseRequest(notification._id)} className="close-button">Close</button>
                             </li>
                         ))}
                     </ul>
