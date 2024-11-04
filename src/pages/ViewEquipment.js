@@ -1,44 +1,92 @@
-// ViewEquipment.js
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import '../styles/ViewEquipment.css';
 
 const ViewEquipment = () => {
     const [equipmentList, setEquipmentList] = useState([]);
-    const [showNegotiationForm, setShowNegotiationForm] = useState(false);
-    const [negotiationDetails, setNegotiationDetails] = useState({
+    const [showOfferForm, setShowOfferForm] = useState(false);
+    const [offerDetails, setOfferDetails] = useState({
         equipmentId: '',
-        offerPrice: '',
+        rentalDuration: '', // Number of days requested
         message: '',
     });
 
     useEffect(() => {
         const fetchEquipment = async () => {
-            const token = localStorage.getItem('token'); 
-            const response = await axios.get('http://localhost:5000/api/rentalSystem', {
-                headers: { Authorization: `Bearer ${token}` }
-            });
-            setEquipmentList(response.data);
+            const token = localStorage.getItem('token');
+            try {
+                const response = await axios.get('http://localhost:5000/api/rentalSystem', {
+                    headers: { Authorization: `Bearer ${token}` }
+                });
+                setEquipmentList(response.data);
+            } catch (error) {
+                console.error("Error fetching equipment:", error);
+            }
         };
         fetchEquipment();
     }, []);
 
-    const handleNegotiateClick = (equipmentId) => {
-        setNegotiationDetails({ ...negotiationDetails, equipmentId });
-        setShowNegotiationForm(true);
+    const handleOfferClick = (equipmentId) => {
+        setOfferDetails({ ...offerDetails, equipmentId });
+        setShowOfferForm(true);
     };
 
-    const handleNegotiationSubmit = async (e) => {
+    const handleOfferSubmit = async (e) => {
         e.preventDefault();
         try {
-            await axios.post('/api/equipment/negotiate', negotiationDetails);
-            alert('Negotiation request sent!');
-            setShowNegotiationForm(false);
+            const token = localStorage.getItem('token');
+            await axios.post(
+                `http://localhost:5000/api/rentalSystem/offer/${offerDetails.equipmentId}`,
+                {
+                    rentalDays: offerDetails.rentalDuration,
+                    message: offerDetails.message,
+                },
+                {
+                    headers: { Authorization: `Bearer ${token}` }
+                }
+            );
+            alert('Offer sent successfully!');
+            setShowOfferForm(false);
+            // Refresh the equipment list to reflect the new offer
+            const response = await axios.get('http://localhost:5000/api/rentalSystem', {
+                headers: { Authorization: `Bearer ${token}` }
+            });
+            setEquipmentList(response.data);
         } catch (error) {
-            alert('Failed to send negotiation request');
+            console.error("Error in handleOfferSubmit:", error);
+            alert('Failed to send offer');
         }
     };
 
+    const renderButton = (item) => {
+        if (!item.available) {
+            return <button disabled>Not Available</button>;
+        }
+    
+        // Check if there are any offers associated with this equipment
+        const offers = item.offers || []; // Ensure offers is an array
+        const activeOffer = offers.find(offer => 
+            offer.status === 'requested' || 
+            offer.status === 'accepted' || 
+            offer.status === 'rejected' || 
+            offer.status === 'pending'
+        );
+    
+        if (activeOffer) {
+            switch (activeOffer.status) {
+                case 'requested':
+                    return <button disabled>Offer Requested</button>;
+                case 'accepted':
+                    return <button disabled>Offer Accepted</button>;
+                case 'rejected':
+                    return <button disabled>Offer Rejected</button>;
+                default:
+                    break;
+            }
+        }
+    
+        return <button onClick={() => handleOfferClick(item._id)}>Make an Offer</button>;
+    };
     return (
         <div className="equipment-list">
             {equipmentList.map((item) => (
@@ -47,29 +95,33 @@ const ViewEquipment = () => {
                     <h3>{item.name}</h3>
                     <p>{item.description}</p>
                     <p>Condition: {item.condition}</p>
-                    <p>Price: ${item.price} per {item.rateType}</p>
-                    <button onClick={() => handleNegotiateClick(item._id)}>Negotiate</button>
+                    <p>Price: Rs{item.price} per {item.rateType}</p>
+                    <p>Location: {item.location}</p>
+                    <p>Owner: {item.userName}</p>
+                    <p>Status: {item.available ? 'Available' : 'Not Available'}</p>
+                    {item.returnDate && <p>Return Date: {new Date(item.returnDate).toLocaleDateString()}</p>}
+                    { renderButton(item) }
                 </div>
             ))}
-            {showNegotiationForm && (
-                <div className="negotiation-form">
-                    <h3>Make a Negotiation Offer</h3>
-                    <form onSubmit={handleNegotiationSubmit}>
+            {showOfferForm && (
+                <div className="offer-form">
+                    <h3>Make an Offer</h3>
+                    <form onSubmit={handleOfferSubmit}>
                         <input
                             type="number"
-                            value={negotiationDetails.offerPrice}
-                            onChange={(e) => setNegotiationDetails({ ...negotiationDetails, offerPrice: e.target.value })}
-                            placeholder="Offer Price"
+                            value={offerDetails.rentalDuration}
+                            onChange={(e) => setOfferDetails({ ...offerDetails, rentalDuration: e.target.value })}
+                            placeholder="Number of days"
                             required
                         />
                         <textarea
-                            value={negotiationDetails.message}
-                            onChange={(e) => setNegotiationDetails({ ...negotiationDetails, message: e.target.value })}
-                            placeholder="Your Message"
+                            value={offerDetails.message}
+                            onChange={(e) => setOfferDetails({ ...offerDetails, message: e.target.value })}
+                            placeholder="Your message"
                             required
                         />
                         <button type="submit">Send Offer</button>
-                        <button type="button" onClick={() => setShowNegotiationForm(false)}>Cancel</button>
+                        <button type="button" onClick={() => setShowOfferForm(false)}>Cancel</button>
                     </form>
                 </div>
             )}

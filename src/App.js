@@ -9,6 +9,8 @@ import Login from './pages/Login'
 import RentalSystem from './pages/RentalSystem';
 import AddEquipment from './pages/AddEquipment';
 import ViewEquipment from './pages/ViewEquipment';
+import Notifications from './pages/Notifications';
+
 
 const App = ({setIsLoggedIn}) => {
     return (
@@ -20,6 +22,7 @@ const App = ({setIsLoggedIn}) => {
                 <Route path="/Signup" element={<Signup />} />
                 <Route path="/Login" element={<Login setIsLoggedIn={setIsLoggedIn} />} />
                 <Route path="/rentalPage" element={<RentalSystem />} />
+                <Route path="/notifications" element={<Notifications />} />
                 <Route path="/addEquipment" element={<AddEquipment />} />
                 <Route path="/viewEquipment" element={<ViewEquipment />} />
                 {/* Add more routes as needed */}
