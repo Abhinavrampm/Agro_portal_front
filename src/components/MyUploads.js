@@ -60,14 +60,6 @@ const MyUploads = () => {
                     </div>
                 ))}
             </div>
-            <div>
-                <h3>Pending Notifications</h3>
-                <ul>
-                    {notifications.length > 0 ? notifications.map((notification, index) => (
-                        <li key={index}>{notification.message}</li>
-                    )) : <p>No notifications</p>}
-                </ul>
-            </div>
         </div>
     );
 };
