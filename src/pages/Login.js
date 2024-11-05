@@ -19,12 +19,8 @@ const Login = ({ setIsLoggedIn }) => { // Accept setIsLoggedIn as prop
       // Store token in local storage
       localStorage.setItem('token', token);
       setIsLoggedIn(true); // Update logged in state
-      setMessage('User logged in successfully!');
-
-      setTimeout(() => {
-        setMessage(''); // Clear message after 3 seconds
-        navigate('/dashboard'); // Redirect to dashboard
-      }, 3000);
+      alert('Login Successful!');
+      navigate('/dashboard')
     } catch (error) {
       console.error(error);
       setMessage('Invalid credentials'); // Show error message
@@ -58,7 +54,6 @@ const Login = ({ setIsLoggedIn }) => { // Accept setIsLoggedIn as prop
           </div>
           <button type="submit">Login</button>
         </form>
-        {message && <div className="popup-message">{message}</div>} {/* Popup message */}
       </div>
 
       {/* Image on the right */}

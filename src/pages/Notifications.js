@@ -43,13 +43,15 @@ const Notifications = () => {
                 headers: { Authorization: `Bearer ${token}` }
             });
             alert('Offer accepted');
-            setOurOffers(prev => prev.filter(notif => notif.offerId !== offerId));
+    
+            // Remove the accepted offer notification from ourOffers
+            setOurOffers(prev => prev.filter(notif => notif.offerId._id !== offerId));
         } catch (error) {
             console.error(error);
             alert('Failed to accept offer');
         }
     };
-
+    
     const handleReject = async (equipmentId, offerId) => {
         try {
             const token = localStorage.getItem('token');
@@ -98,8 +100,8 @@ const Notifications = () => {
                                 <p><strong>Date:</strong> {new Date(notification.date).toLocaleDateString()}</p>
                                 <p><strong>From:</strong> {notification.senderId?.name}</p>
                                 <div className="notification-buttons">
-                                    <button onClick={() => handleAccept(notification.equipmentId, notification.offerId)} className="accept-button">Accept</button>
-                                    <button onClick={() => handleReject(notification.equipmentId, notification.offerId)} className="reject-button">Reject</button>
+                                    <button onClick={() => handleAccept(notification.equipmentId, notification.offerId._id)} className="accept-button">Accept</button>
+                                    <button onClick={() => handleReject(notification.equipmentId, notification.offerId._id)} className="reject-button">Reject</button>
                                 </div>
                             </li>
                         ))}

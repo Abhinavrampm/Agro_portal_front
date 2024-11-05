@@ -14,7 +14,7 @@ const Signup = () => {
     axios.post('http://localhost:5000/api/auth/signup', {
         name, email, phoneNo, password
     }).then(result => {
-      setMessage('User registered Successfully');
+      alert('User registered Successfully!');
       setTimeout(() => setMessage(''), 3000); // clear the message after 3 sec
       console.log(result);
     })
@@ -81,7 +81,6 @@ const Signup = () => {
           </div>
           <button type="submit">Register</button>
         </form>
-        {message && <div className="popup-message">{message}</div>} {/* Popup message */}
       </div>
 
       {/* Image on the right */}

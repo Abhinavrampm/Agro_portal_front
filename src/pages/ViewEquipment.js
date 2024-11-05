@@ -99,6 +99,7 @@ const ViewEquipment = () => {
                     <p>Price: Rs{item.price} per {item.rateType}</p>
                     <p>Location: {item.location}</p>
                     <p>Owner: {item.userName}</p>
+                    <p>Upload date: {new Date(item.createdAt).toLocaleDateString('en-US')}</p>
                     <p>Status: {item.available ? 'Available' : 'Not Available'}</p>
                     {item.returnDate && <p>Return Date: {new Date(item.returnDate).toLocaleDateString()}</p>}
                     { renderButton(item) }
