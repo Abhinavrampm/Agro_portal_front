@@ -7,9 +7,10 @@ const ViewEquipment = () => {
     const [showOfferForm, setShowOfferForm] = useState(false);
     const [offerDetails, setOfferDetails] = useState({
         equipmentId: '',
-        rentalDuration: '', // Number of days requested
+        rentalDuration: '',
         message: '',
     });
+    const [offerStatus, setOfferStatus] = useState({}); // Track status per equipment item
 
     useEffect(() => {
         const fetchEquipment = async () => {
@@ -46,47 +47,47 @@ const ViewEquipment = () => {
                 }
             );
             alert('Offer sent successfully!');
+            setOfferStatus((prev) => ({
+                ...prev,
+                [offerDetails.equipmentId]: 'requested'
+            }));
             setShowOfferForm(false);
-            // Refresh the equipment list to reflect the new offer
-            const response = await axios.get('http://localhost:5000/api/rentalSystem', {
-                headers: { Authorization: `Bearer ${token}` }
-            });
-            setEquipmentList(response.data);
         } catch (error) {
             console.error("Error in handleOfferSubmit:", error);
             alert('Failed to send offer');
         }
     };
 
+    const handleOfferAction = async (action, equipmentId, offerId) => {
+        try {
+            const token = localStorage.getItem('token');
+            const response = await axios.post(
+                `http://localhost:5000/api/rentalSystem/${action}-offer/${equipmentId}/${offerId}`,
+                {},
+                { headers: { Authorization: `Bearer ${token}` } }
+            );
+            const updatedStatus = action === 'accept' ? 'accepted' : 'rejected';
+            setOfferStatus((prev) => ({
+                ...prev,
+                [equipmentId]: updatedStatus
+            }));
+            alert(response.data.message);
+        } catch (error) {
+            console.error(`Error in handleOfferAction:`, error);
+            alert(`Failed to ${action} offer`);
+        }
+    };
+
     const renderButton = (item) => {
-        if (!item.available) {
-            return <button disabled>Not Available</button>;
-        }
-    
-        // Check if there are any offers associated with this equipment
-        const offers = item.offers || []; // Ensure offers is an array
-        const activeOffer = offers.find(offer => 
-            offer.status === 'requested' || 
-            offer.status === 'accepted' || 
-            offer.status === 'rejected' || 
-            offer.status === 'pending'
-        );
-    
-        if (activeOffer) {
-            switch (activeOffer.status) {
-                case 'requested':
-                    return <button disabled>Offer Requested</button>;
-                case 'accepted':
-                    return <button disabled>Offer Accepted</button>;
-                case 'rejected':
-                    return <button disabled>Offer Rejected</button>;
-                default:
-                    break;
-            }
-        }
-    
+        const status = offerStatus[item._id];
+        if (!item.available) return <button disabled>Not Available</button>;
+        if (status === 'requested') return <button disabled>Offer Requested</button>;
+        if (status === 'accepted') return <button disabled>Offer Accepted</button>;
+        if (status === 'rejected') return <button disabled>Offer Rejected</button>;
+
         return <button onClick={() => handleOfferClick(item._id)}>Make an Offer</button>;
     };
+
     return (
         <div className="equipment-list">
             {equipmentList.map((item) => (

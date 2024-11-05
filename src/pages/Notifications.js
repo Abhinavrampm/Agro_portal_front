@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import '../styles/Notification.css'; // Ensure this file contains the CSS provided
+import '../styles/Notification.css';
 
 const Notifications = () => {
     const [ourOffers, setOurOffers] = useState([]);
@@ -14,8 +14,19 @@ const Notifications = () => {
                 const response = await axios.get('http://localhost:5000/api/notifications', {
                     headers: { Authorization: `Bearer ${token}` }
                 });
-                setOurOffers(response.data.ourOffers);
-                setOurRequests(response.data.ourRequests);
+                console.log(response.data);
+
+                // Separate notifications based on type
+                const offers = response.data.notifications.filter(
+                    (notif) => notif.notificationType === 'offer'
+                );
+                const requests = response.data.notifications.filter(
+                    (notif) => notif.notificationType === 'request'
+                );
+
+                setOurOffers(offers);
+                console.log(offers);
+                setOurRequests(requests);
             } catch (error) {
                 console.error("Error fetching notifications:", error);
             } finally {
@@ -85,7 +96,7 @@ const Notifications = () => {
                             <li key={notification._id} className="notification-item">
                                 <p><strong>Message:</strong> {notification.message}</p>
                                 <p><strong>Date:</strong> {new Date(notification.date).toLocaleDateString()}</p>
-                                <p><strong>From:</strong> {notification.senderId?.name || 'Unknown'}</p>
+                                <p><strong>From:</strong> {notification.senderId?.name}</p>
                                 <div className="notification-buttons">
                                     <button onClick={() => handleAccept(notification.equipmentId, notification.offerId)} className="accept-button">Accept</button>
                                     <button onClick={() => handleReject(notification.equipmentId, notification.offerId)} className="reject-button">Reject</button>
