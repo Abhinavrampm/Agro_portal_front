@@ -90,21 +90,26 @@ const ViewEquipment = () => {
 
     return (
         <div className="equipment-list">
-            {equipmentList.map((item) => (
-                <div key={item._id} className="equipment-card">
-                    <img src={`http://localhost:5000/${item.imagePath}`} alt={item.name} className="card-image" />
-                    <h3>{item.name}</h3>
-                    <p>{item.description}</p>
-                    <p>Condition: {item.condition}</p>
-                    <p>Price: Rs{item.price} per {item.rateType}</p>
-                    <p>Location: {item.location}</p>
-                    <p>Owner: {item.userName}</p>
-                    <p>Upload date: {new Date(item.createdAt).toLocaleDateString('en-US')}</p>
-                    <p>Status: {item.available ? 'Available' : 'Not Available'}</p>
-                    {item.returnDate && <p>Return Date: {new Date(item.returnDate).toLocaleDateString()}</p>}
-                    { renderButton(item) }
-                </div>
-            ))}
+            <h1>Welcome to Collaborative Farming Shop</h1>
+            {equipmentList.length === 0 ? (
+                <p>There is nothing to rent</p>
+            ) : (
+                equipmentList.map((item) => (
+                    <div key={item._id} className="equipment-card">
+                        <img src={`http://localhost:5000/${item.imagePath}`} alt={item.name} className="card-image" />
+                        <h3>{item.name}</h3>
+                        <p>{item.description}</p>
+                        <p>Condition: {item.condition}</p>
+                        <p>Price: Rs{item.price} per {item.rateType}</p>
+                        <p>Location: {item.location}</p>
+                        <p>Owner: {item.userName}</p>
+                        <p>Upload date: {new Date(item.createdAt).toLocaleDateString('en-US')}</p>
+                        <p>Status: {item.available ? 'Available' : 'Not Available'}</p>
+                        {item.returnDate && <p>Return Date: {new Date(item.returnDate).toLocaleDateString()}</p>}
+                        {renderButton(item)}
+                    </div>
+                ))
+            )}
             {showOfferForm && (
                 <div className="offer-form">
                     <h3>Make an Offer</h3>

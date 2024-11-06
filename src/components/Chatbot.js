@@ -40,7 +40,7 @@ const Chatbot = () => {
 
     return (
         <div className="chatbot-container">
-            <h1>Your AI Farmer</h1>
+            <h3>Ask any queries to our new AI-assisted farmer here!</h3>
             <div className="chat-window">
                 {messages.map((msg, index) => (
                     <div key={index} className={`message ${msg.sender}`}>

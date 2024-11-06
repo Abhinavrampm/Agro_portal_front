@@ -73,7 +73,7 @@
 }
 
 .notification-buttons .accept-button:hover {
-    background-color: #45A049;
+    background: linear-gradient(135deg, #fefefe, #0b500e);
 }
 
 /* Reject button styling */

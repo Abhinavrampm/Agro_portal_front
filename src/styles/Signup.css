@@ -44,7 +44,7 @@
 .signup-form button {
   width: 100%;                   /* Full width for the button */
   padding: 10px;                 /* Padding inside the button */
-  background-color: #28a745;     /* Green background for the button */
+  background: linear-gradient(135deg, #fefefe, #0b500e);    /* Green background for the button */
   color: white;                  /* White text color for button */
   border: none;                  /* No border */
   border-radius: 4px;           /* Rounded corners for button */

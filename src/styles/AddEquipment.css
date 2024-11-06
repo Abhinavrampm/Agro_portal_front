@@ -1,47 +1,73 @@
-/* AddEquipment.css */
-
+/* Container for the form */
 .add-equipment-container {
-    max-width: 500px;
+    width: 60%;
+    max-width: 800px;
     margin: 0 auto;
     padding: 20px;
-    border: 1px solid #ddd;
-    border-radius: 8px;
     background-color: #f9f9f9;
+    border-radius: 8px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
 }
 
+/* Header */
 .add-equipment-container h2 {
     text-align: center;
-    margin-bottom: 20px;
     font-size: 24px;
     color: #333;
+    margin-bottom: 20px;
 }
 
-.add-equipment-container form {
+/* Form styling */
+.add-equipment-form {
     display: flex;
     flex-direction: column;
+    gap: 15px;
 }
 
-.add-equipment-container input,
-.add-equipment-container button {
+/* Form input fields */
+.add-equipment-form input[type="text"],
+.add-equipment-form input[type="number"],
+.add-equipment-form textarea,
+.add-equipment-form select,
+.add-equipment-form input[type="file"] {
     padding: 10px;
-    margin: 10px 0;
+    font-size: 16px;
     border: 1px solid #ccc;
-    border-radius: 5px;
+    border-radius: 4px;
+    width: 100%;
 }
 
-.add-equipment-container input:focus {
-    outline: none;
-    border-color: #67a6f7;
+/* Textarea */
+.add-equipment-form textarea {
+    resize: vertical;
 }
 
-.add-equipment-container button {
-    background-color: #67a6f7;
-    color: white;
-    font-weight: bold;
+/* Labels */
+.add-equipment-form label {
+    display: flex;
+    flex-direction: column;
+    font-size: 16px;
+    color: #555;
+}
+
+/* Submit button */
+.add-equipment-form button[type="submit"] {
+    padding: 12px;
+    font-size: 18px;
+    color: #fff;
+    background-color: #28a745;
+    border: none;
+    border-radius: 4px;
     cursor: pointer;
     transition: background-color 0.3s;
 }
 
-.add-equipment-container button:hover {
-    background-color: #558ed2;
+.add-equipment-form button[type="submit"]:hover {
+    background-color: #218838;
+}
+
+/* Divider for MyUploads component */
+.section-divider {
+    margin-top: 30px;
+    border-top: 1px solid #e0e0e0;
 }

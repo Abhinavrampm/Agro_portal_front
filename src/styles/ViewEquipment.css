@@ -1,51 +1,119 @@
+/* ViewEquipment.css */
+
 .equipment-list {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); /* Responsive grid */
-    gap: 20px; /* Space between cards */
-    padding: 20px; /* Overall padding */
+    gap: 20px;
+    padding: 20px;
+}
+
+.equipment-list h1 {
+    font-size: 2em;
+    color: black; /* Black color for the heading */
+    text-align: center;
+    margin-bottom: 20px;
+    width: 100%; /* Ensures heading takes full width */
+    font-weight: bold;
 }
 
 .equipment-card {
-    background-color: #fff; /* White background for cards */
-    border: 1px solid #e1e1e1; /* Light grey border */
-    border-radius: 8px; /* Rounded corners */
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
-    overflow: hidden; /* Ensures no overflow from rounded corners */
-    transition: transform 0.2s; /* Smooth transition for hover effect */
-    padding: 15px; /* Padding inside cards */
-    text-align: center; /* Center align text */
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    background-color: #f9f9f9;
+    transition: transform 0.2s;
 }
 
 .equipment-card:hover {
-    transform: translateY(-5px); /* Raise the card slightly on hover */
+    transform: scale(1.05);
 }
 
 .card-image {
-    width: 100%; /* Full width of the card */
-    height: auto; /* Maintain aspect ratio */
-    border-radius: 4px; /* Slightly rounded corners for images */
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    border-radius: 5px;
+    margin-bottom: 15px;
 }
 
-h3 {
-    font-size: 1.5em; /* Increase heading size */
-    margin: 10px 0; /* Margin around heading */
+.equipment-card h3 {
+    font-size: 1.5em;
+    color: #333;
+    margin: 10px 0;
 }
 
-p {
-    color: #555; /* Darker grey for text */
-    margin: 5px 0; /* Margin around paragraphs */
+.equipment-card p {
+    font-size: 0.9em;
+    margin: 5px 0;
+    color: #555;
 }
 
-button {
-    background-color: #007bff; /* Bootstrap primary color */
-    color: white; /* White text */
-    border: none; /* No border */
-    border-radius: 4px; /* Rounded corners */
-    padding: 10px 15px; /* Padding inside button */
-    cursor: pointer; /* Pointer cursor on hover */
-    transition: background-color 0.3s; /* Transition for hover effect */
+.equipment-card button {
+    background-color: #007bff;
+    color: white;
+    padding: 8px 12px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    margin-top: 10px;
 }
 
-button:hover {
-    background-color: #0056b3; /* Darker blue on hover */
+.equipment-card button:hover {
+    background-color: #0056b3;
+}
+
+.equipment-card button:disabled {
+    background-color: #ddd;
+    cursor: not-allowed;
+}
+
+.offer-form {
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    margin-top: 20px;
+    width: 100%;
+}
+
+.offer-form h3 {
+    font-size: 1.3em;
+    color: #333;
+    margin-bottom: 15px;
+}
+
+.offer-form input,
+.offer-form textarea {
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 0.9em;
+}
+
+.offer-form button {
+    background-color: #28a745;
+    color: white;
+    padding: 8px 12px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-right: 5px;
+    transition: background-color 0.3s;
+}
+
+.offer-form button[type="button"] {
+    background-color: #dc3545; /* Red for cancel button */
+}
+
+.offer-form button:hover {
+    background-color: #218838;
+}
+
+.offer-form button[type="button"]:hover {
+    background-color: #c82333;
 }

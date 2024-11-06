@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import MyUploads from '../components/MyUploads';
+import '../styles/AddEquipment.css';
 
 const AddEquipment = () => {
     const [name, setName] = useState('');

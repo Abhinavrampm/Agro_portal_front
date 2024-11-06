@@ -167,3 +167,29 @@ form input:focus {
         padding: 7px;
     }
 }
+
+
+/* Chatbot card styling */
+.chatbot-card {
+    position: fixed;
+    bottom: 80px; /* Adjust based on the button size */
+    right: 20px;
+    background-color: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    padding: 20px;
+    max-width: 300px; /* Adjust width as needed */
+    display: none; /* Initially hidden */
+    z-index: 1000; /* Ensure it is above other elements */
+}
+
+.chatbot-card.active {
+    display: block; /* Show when active */
+}
+
+/* Optional styling for the chat content */
+.chat-content {
+    max-height: 400px; /* Limit height */
+    overflow-y: auto; /* Allow scrolling if needed */
+}
+

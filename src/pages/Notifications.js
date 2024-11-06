@@ -66,8 +66,11 @@ const Notifications = () => {
         }
     };
 
+    const [deletingNotificationId, setDeletingNotificationId] = useState(null);
+
     const handleCloseRequest = async (notificationId) => {
         try {
+            setDeletingNotificationId(notificationId);
             const token = localStorage.getItem('token');
             await axios.delete(`http://localhost:5000/api/notifications/${notificationId}`, {
                 headers: { Authorization: `Bearer ${token}` }
@@ -76,6 +79,8 @@ const Notifications = () => {
         } catch (error) {
             console.error(error);
             alert('Failed to close notification');
+        } finally {
+            setDeletingNotificationId(null);
         }
     };
 
