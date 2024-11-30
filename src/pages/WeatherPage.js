@@ -1,4 +1,3 @@
-// WeatherPage.js
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { Oval } from 'react-loader-spinner';
@@ -125,7 +124,7 @@ const WeatherPage = () => {
 	const fetchWeatherByLocation = async (latitude, longitude) => {
 		setWeather({ ...weather, loading: true });
 		const url = 'https://api.openweathermap.org/data/2.5/weather';
-		const api_key = 'a1261fdbd807312e84b79a61ca2ca284'; // Replace with your OpenWeatherMap API key
+		const api_key = 'a1261fdbd807312e84b79a61ca2ca284';
 		await axios
 			.get(url, {
 				params: {
@@ -143,17 +142,23 @@ const WeatherPage = () => {
 			});
 	};
 
-	// Get user's current location on mount
+	// Always ask for location when visiting this page
 	useEffect(() => {
-		navigator.geolocation.getCurrentPosition(
-			(position) => {
-				const { latitude, longitude } = position.coords;
-				fetchWeatherByLocation(latitude, longitude);
-			},
-			(error) => {
-				console.error(error); 
-			}
-		);
+		if (navigator.geolocation) {
+			navigator.geolocation.getCurrentPosition(
+				(position) => {
+					const { latitude, longitude } = position.coords;
+					fetchWeatherByLocation(latitude, longitude);
+				},
+				(error) => {
+					console.error(error); 
+					setWeather({ ...weather, error: true });
+				}
+			);
+		} else {
+			console.error('Geolocation is not supported by this browser.');
+			setWeather({ ...weather, error: true });
+		}
 	}, []); 
 
 	return (

@@ -1,20 +1,24 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import '../styles/Signup.css';
-import Pageimage from '../components/images/Login.jpg'
+import Pageimage from '../components/images/Login.jpg';
+
 const Signup = () => {
   const [name, setName] = useState();
   const [email, setEmail] = useState();
   const [phoneNo, setPhoneNo] = useState();
   const [password, setPassword] = useState();
   const [message, setMessage] = useState(); // for popup messages
-
+  const navigate = (path) => {
+    window.location.href = path;
+  };
   const handleSubmit = (e) => {
     e.preventDefault(); // to prevent default submission
     axios.post('http://localhost:5000/api/auth/signup', {
-        name, email, phoneNo, password
+      name, email, phoneNo, password
     }).then(result => {
       alert('User registered Successfully!');
+      navigate('/Login')
       setTimeout(() => setMessage(''), 3000); // clear the message after 3 sec
       console.log(result);
     })
@@ -33,7 +37,7 @@ const Signup = () => {
             <label htmlFor="name">Full Name:</label>
             <input
               type="text"
-              placeholder='Name'
+              placeholder="Name"
               id="name"
               name="name"
               onChange={(e) => setName(e.target.value)}
@@ -44,7 +48,7 @@ const Signup = () => {
             <label htmlFor="email">Email:</label>
             <input
               type="email"
-              placeholder='Email'
+              placeholder="Email"
               id="email"
               name="email"
               onChange={(e) => setEmail(e.target.value)}
@@ -72,20 +76,16 @@ const Signup = () => {
             <label htmlFor="password">Password:</label>
             <input
               type="password"
-              placeholder='Password'
+              placeholder="Password"
               id="password"
               name="password"
-              onChange={(e) => { setPassword(e.target.value) }}
+              onChange={(e) => setPassword(e.target.value)}
               required
             />
           </div>
           <button type="submit">Register</button>
         </form>
-      </div>
-
-      {/* Image on the right */}
-      <div className="image-container">
-        <img src={Pageimage} alt="Sign Up Illustration" className="right-image" />
+        {message && <div className="popup-message">{message}</div>}
       </div>
     </div>
   );

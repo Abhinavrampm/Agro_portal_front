@@ -58,35 +58,6 @@ const ViewEquipment = () => {
         }
     };
 
-    const handleOfferAction = async (action, equipmentId, offerId) => {
-        try {
-            const token = localStorage.getItem('token');
-            const response = await axios.post(
-                `http://localhost:5000/api/rentalSystem/${action}-offer/${equipmentId}/${offerId}`,
-                {},
-                { headers: { Authorization: `Bearer ${token}` } }
-            );
-            const updatedStatus = action === 'accept' ? 'accepted' : 'rejected';
-            setOfferStatus((prev) => ({
-                ...prev,
-                [equipmentId]: updatedStatus
-            }));
-            alert(response.data.message);
-        } catch (error) {
-            console.error(`Error in handleOfferAction:`, error);
-            alert(`Failed to ${action} offer`);
-        }
-    };
-
-    const renderButton = (item) => {
-        const status = offerStatus[item._id];
-        if (!item.available) return <button disabled>Not Available</button>;
-        if (status === 'requested') return <button disabled>Offer Requested</button>;
-        if (status === 'accepted') return <button disabled>Offer Accepted</button>;
-        if (status === 'rejected') return <button disabled>Offer Rejected</button>;
-
-        return <button onClick={() => handleOfferClick(item._id)}>Make an Offer</button>;
-    };
 
     return (
         <div className="equipment-list">
@@ -106,7 +77,7 @@ const ViewEquipment = () => {
                         <p>Upload date: {new Date(item.createdAt).toLocaleDateString('en-US')}</p>
                         <p>Status: {item.available ? 'Available' : 'Not Available'}</p>
                         {item.returnDate && <p>Return Date: {new Date(item.returnDate).toLocaleDateString()}</p>}
-                        {renderButton(item)}
+                       {item.available?<button onClick={() => handleOfferClick(item._id)}>Make an Offer</button>:<button disabled>Make an Offer</button>}
                     </div>
                 ))
             )}

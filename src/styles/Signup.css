@@ -1,80 +1,101 @@
-/* Signup.css */
+/* Prevent horizontal overflow */
+body {
+  overflow-x: hidden;
+  margin: 0;
+  padding: 0;
+  font-family: Arial, sans-serif;
+}
+
+/* Main container */
 .signup-container {
-  display: flex;                  /* Use flexbox for layout */
-  justify-content: space-between; /* Space between form and image */
-  align-items: flex-start;        /* Align items to the top */
-  padding: 20px;                  /* Add padding around the container */
-  background-color: #f9f9f9;      /* Light background color for contrast */
-  height: 100vh;                  /* Full height of the viewport */
+  position: relative;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+  z-index: 2;
 }
 
+/* Blurred background image */
+.signup-container::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-image: url('../components/images/back.jpg'); /* Background image */
+  background-size: cover;
+  background-position: center;
+  filter: blur(5px);
+  z-index: 1;
+}
+
+/* Form container styling */
 .signup-form {
-  flex: 0 0 400px;                /* Set the form to a fixed width */
-  margin-right: 20px;             /* Space between form and image */
-  background: white;              /* White background for the form */
-  border-radius: 8px;             /* Rounded corners for the form */
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
-  padding: 20px;                  /* Padding inside the form */
+  position: relative;
+  background-color: rgba(255, 255, 255, 0.9);
+  padding: 40px;
+  border-radius: 15px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  width: 300px;
+  z-index: 2;
 }
 
+/* Form heading */
 .signup-form h2 {
-  margin-bottom: 20px;            /* Space below the heading */
-  font-size: 24px;                /* Font size for the heading */
-  color: #333;                    /* Dark text color for the heading */
+  margin-bottom: 20px;
+  font-size: 24px;
+  color: #333;
+  text-align: center;
 }
 
+/* Spacing between input items */
 .signup-form div {
-  margin-bottom: 15px;            /* Space between input fields */
+  margin-bottom: 20px;
 }
 
+/* Label styling */
 .signup-form label {
-  display: block;                 /* Block display for labels */
-  margin-bottom: 5px;            /* Space below labels */
-  font-weight: bold;              /* Bold font for labels */
+  display: block;
+  margin-bottom: 5px;
+  font-weight: bold;
 }
 
+/* Input styling */
 .signup-form input {
-  width: 100%;                   /* Full width for inputs */
-  padding: 10px;                 /* Padding inside inputs */
-  border: 1px solid #ccc;       /* Light gray border */
-  border-radius: 4px;           /* Rounded corners for inputs */
-  box-sizing: border-box;        /* Include padding and border in width */
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+  background-color: rgba(255, 255, 255, 0.8);
 }
 
+/* Button styling */
 .signup-form button {
-  width: 100%;                   /* Full width for the button */
-  padding: 10px;                 /* Padding inside the button */
-  background: linear-gradient(135deg, #fefefe, #0b500e);    /* Green background for the button */
-  color: white;                  /* White text color for button */
-  border: none;                  /* No border */
-  border-radius: 4px;           /* Rounded corners for button */
-  font-size: 16px;               /* Font size for button text */
-  cursor: pointer;               /* Pointer cursor on hover */
+  width: 100%;
+  padding: 10px;
+  background-color: #006400;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  font-size: 16px;
+  cursor: pointer;
 }
 
 .signup-form button:hover {
-  background-color: #218838;      /* Darker green on hover */
+  background-color: #004d33;
 }
 
+/* Popup message styling */
 .popup-message {
-  margin-top: 15px;              /* Space above the popup message */
-  padding: 10px;                  /* Padding inside message box */
-  background-color: #e2e3e5;      /* Light gray background for message */
-  border: 1px solid #b1b3b5;     /* Border for message box */
-  color: #721c24;                 /* Dark red color for error messages */
-  border-radius: 4px;            /* Rounded corners for message box */
-}
-
-.image-container {
-  flex: 1;                        /* Allow image container to take remaining space */
-  display: flex;                  /* Use flexbox to center the image */
-  justify-content: center;        /* Center the image horizontally */
-  align-items: center;            /* Center the image vertically */
-  max-width: 600px;              /* Optional: Limit maximum width of the image container */
-}
-
-.right-image {
-  max-width: 100%;               /* Responsive image */
-  height: auto;                  /* Maintain aspect ratio */
-  border-radius: 8px;            /* Rounded corners for the image */
+  margin-top: 15px;
+  padding: 10px;
+  background-color: #f8d7da;
+  border: 1px solid #f5c6cb;
+  color: #721c24;
+  border-radius: 4px;
 }

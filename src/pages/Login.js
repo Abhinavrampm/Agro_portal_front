@@ -23,7 +23,7 @@ const Login = ({ setIsLoggedIn }) => { // Accept setIsLoggedIn as prop
       navigate('/dashboard')
     } catch (error) {
       console.error(error);
-      setMessage('Invalid credentials'); // Show error message
+      alert('Invalid credentials'); // Show error message
     }
   };
 
@@ -57,9 +57,7 @@ const Login = ({ setIsLoggedIn }) => { // Accept setIsLoggedIn as prop
       </div>
 
       {/* Image on the right */}
-      <div className="image-container">
-        <img src={Pageimage} alt="Login Illustration" className="right-image" />
-      </div>
+      
     </div>
   );
 };

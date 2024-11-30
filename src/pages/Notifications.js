@@ -14,7 +14,6 @@ const Notifications = () => {
                 const response = await axios.get('http://localhost:5000/api/notifications', {
                     headers: { Authorization: `Bearer ${token}` }
                 });
-                console.log(response.data);
 
                 // Separate notifications based on type
                 const offers = response.data.notifications.filter(
@@ -125,7 +124,6 @@ const Notifications = () => {
                     <ul>
                         {ourRequests.map((notification) => (
                             <li key={notification._id} className="notification-item">
-                                <p><strong>Equipment:</strong> {notification.equipmentId ? notification.equipmentId.name : 'Unknown Equipment'}</p>
                                 <p><strong>Status:</strong> {notification.message}</p>
                                 <p><strong>Date:</strong> {new Date(notification.date).toLocaleDateString()}</p>
                                 <button onClick={() => handleCloseRequest(notification._id)} className="close-button">Close</button>

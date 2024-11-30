@@ -10,8 +10,8 @@ import RentalSystem from './pages/RentalSystem';
 import AddEquipment from './pages/AddEquipment';
 import ViewEquipment from './pages/ViewEquipment';
 import Notifications from './pages/Notifications';
-
-
+import Service from './pages/Service';
+import Choose from './pages/Choose';
 const App = ({setIsLoggedIn}) => {
     return (
         <Router>
@@ -19,6 +19,8 @@ const App = ({setIsLoggedIn}) => {
                 <Route path="/" element={<Home />} /> 
                 <Route path="/dashboard" element={<Dashboard />} />
                 <Route path="/chatbot" element={<Chatbot />} />
+                <Route path='/services' element = {<Service />} />
+                <Route path='/choose' element = {<Choose />} />
                 <Route path="/Signup" element={<Signup />} />
                 <Route path="/Login" element={<Login setIsLoggedIn={setIsLoggedIn} />} />
                 <Route path="/rentalPage" element={<RentalSystem />} />
