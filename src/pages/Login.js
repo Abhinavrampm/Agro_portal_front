@@ -1,29 +1,60 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
-import '../styles/Login.css'; // Import your CSS
-import Pageimage from '../components/images/Login.jpg'; // Import your image
+import '../styles/Login.css';
 
-const Login = ({ setIsLoggedIn }) => { // Accept setIsLoggedIn as prop
-  const [email, setEmail] = useState('');
+const Login = ({ setIsLoggedIn }) => {
+  const [identifier, setIdentifier] = useState(''); // Handles email/phoneNo
   const [password, setPassword] = useState('');
-  const [message, setMessage] = useState('');
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    // Determine whether identifier is email or phoneNo
+    const isEmail = /^\S+@\S+\.\S+$/.test(identifier);
+    const isPhoneNo = /^\d{10}$/.test(identifier);
+
+    if (!isEmail && !isPhoneNo) {
+      alert('Invalid email or phone number format.');
+      return;
+    }
+
     try {
-      const response = await axios.post('http://localhost:5000/api/auth/login', { email, password });
+      let response;
+
+      if (isEmail) {
+        // Call user login API
+        response = await axios.post('http://localhost:5000/api/auth/login', {
+          email: identifier,
+          password,
+        });
+      } else if (isPhoneNo) {
+        console.log("Phone no is",identifier);
+        // Call worker login API
+        response = await axios.post('http://localhost:5000/api/auth/Workerlogin', {
+          phoneNo: identifier,
+          password,
+        });
+      }
+
       const token = response.data.token;
 
       // Store token in local storage
       localStorage.setItem('token', token);
-      setIsLoggedIn(true); // Update logged in state
-      alert('Login Successful!');
-      navigate('/dashboard')
+      setIsLoggedIn(true); // Update logged-in state
+
+      // Redirect based on user type
+      if (isEmail) {
+        alert('User Login Successful!');
+        navigate('/dashboard'); // Redirect to user dashboard
+      } else {
+        alert('Worker Login Successful!');
+        navigate('/viewJobs'); // Redirect to worker dashboard
+      }
     } catch (error) {
       console.error(error);
-      alert('Invalid credentials'); // Show error message
+      alert(error.response?.data?.message || 'Invalid credentials'); // Show error message
     }
   };
 
@@ -33,12 +64,12 @@ const Login = ({ setIsLoggedIn }) => { // Accept setIsLoggedIn as prop
         <h2>Login</h2>
         <form onSubmit={handleSubmit}>
           <div>
-            <label htmlFor="email">Email:</label>
+            <label htmlFor="identifier">Email/Phone No:</label>
             <input
-              type="email"
-              id="email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
+              type="text"
+              id="identifier"
+              value={identifier}
+              onChange={(e) => setIdentifier(e.target.value)}
               required
             />
           </div>
@@ -55,9 +86,6 @@ const Login = ({ setIsLoggedIn }) => { // Accept setIsLoggedIn as prop
           <button type="submit">Login</button>
         </form>
       </div>
-
-      {/* Image on the right */}
-      
     </div>
   );
 };

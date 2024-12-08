@@ -18,6 +18,12 @@ const Choose = () => { // Accept setCurrentPage as a prop
     if (index === 0) { // If Farmer is selected (index 0)
       navigate('/SignUp'); // Navigate to Sign Up page
     }
+    else if(index === 1) {
+      navigate('Workersignup');
+    }
+    else if(index === 2) {
+      navigate('/adminSignup');
+    }
   };
 
   const labels = ['Farmer', 'Customer', 'Worker']; // Labels for each box
