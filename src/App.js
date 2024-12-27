@@ -13,6 +13,7 @@ import ViewEquipment from "./pages/ViewEquipment";
 import Notifications from "./pages/Notifications";
 import Service from "./pages/Service";
 import Choose from "./pages/Choose";
+import CropDisease from "./pages/CropDisease";
 import ViewJobs from "./pages/ViewJobs";
 import AgriculturalNews from "./pages/AgricultureNews";
 const App = ({ setIsLoggedIn }) => {
@@ -24,6 +25,7 @@ const App = ({ setIsLoggedIn }) => {
         <Route path="/chatbot" element={<Chatbot />} />
         <Route path="/services" element={<Service />} />
         <Route path="/choose" element={<Choose />} />
+        <Route path="/Crophealth" element={<CropDisease />} />
         <Route path="/Signup" element={<Signup />} />
         <Route
           path="/Login"

@@ -25,6 +25,7 @@ const Navbar = ({ isLoggedIn, onLogout }) => {
         ) : (
           <>
             <li><a href="/">Home</a></li>
+            <li><a href="/Crophealth">Crop Doctor</a></li>
             <li><a href="/services">Services</a></li>
             <li><a href="/about">About</a></li>
           </>
